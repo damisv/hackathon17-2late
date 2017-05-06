@@ -1,0 +1,5 @@
+<agm-map #mMap (mapClick)="onMapClicked($event)" [latitude]="lat" [longitude]="lng">
+
+        <agm-marker *ngFor="let complaint of complaints" [latitude]="complaint.lat" [longitude]="complaint.lng"><agm-info-window>{{ complaint?.name}}</agm-info-window></agm-marker>
+
+</agm-map>

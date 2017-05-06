@@ -11,13 +11,18 @@ import {AppComponent} from "./app.component";
 import {ChartModule} from "angular2-highcharts";
 import {HomepageComponent} from "./homepage/homepage.component";
 import {routing} from "./app.routing";
+import {ComplaintsComponent} from "./complaints/complaints.component";
+import {FooterComponent} from "./footer/footer.component";
+import {AgmCoreModule} from "@agm/core";
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomepageComponent
+        HomepageComponent,
+        ComplaintsComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
@@ -27,6 +32,9 @@ import {routing} from "./app.routing";
         ReactiveFormsModule,
         MaterialModule,
         BrowserAnimationsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCCXhFIl8-1YYMEG7qwaikpOji4r5Mq_mE'
+        }),
         ChartModule.forRoot(require('highcharts'),
         require('highcharts/highcharts-3d'),
         require('highcharts/modules/exporting'))

@@ -1,9 +1,25 @@
 
 <ul style="list-style: none;position:fixed;margin-top: 20%;margin-left: 0px;z-index:100;">
     <li style="padding-bottom:5%;"><a md-fab [routerLink]="['homepage']" color="primary" mdTooltip="Homepage" ><md-icon>home</md-icon></a></li>
-    <li style="padding-bottom:5%;"><a md-fab routerLink="." color="warn" mdTooltip="Complaints" ><md-icon>report_problem</md-icon></a></li>
+    <li style="padding-bottom:5%;"><a md-fab [routerLink]="['complaints']" color="warn" mdTooltip="Complaints" ><md-icon>report_problem</md-icon></a></li>
     <li style="padding-bottom:5%;"><a md-fab routerLink="." mdTooltip="Suggestions"><md-icon>add</md-icon></a></li>
 </ul>
 
-<router-outlet></router-outlet>
+
+<div class="wrapper">
+
+    <div class="header">
+        <h1 class="header-title">Complaints and Suggestions - Serres</h1>
+        <p class="header-title"> This is the place where you could share your complaints and talk about the city's problems.
+            <br>Also any idea you have regarding the city improvings share it here.</p>
+    </div>
+
+    <md-card class="raised-card">
+
+        <router-outlet></router-outlet>
+
+    </md-card>
+
+        <footer-component></footer-component>
+</div>
 
