@@ -1,0 +1,27 @@
+{
+"compilerOptions": {
+  "target": "es5",
+  "module": "commonjs",
+  "moduleResolution": "node",
+  "noImplicitAny": false,
+  "sourceMap": false,
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
+  "lib": [
+    "dom",
+    "es6"
+    ],
+  "typeRoots": [
+    "node_modules/@types"
+    ],
+  "types": [
+    "hammerjs",
+    "node"
+  ]
+  },
+  "exclude": [
+    "assets/app/main.aot.ts",
+      "node_modules",
+      "public/js"
+  ]
+}
