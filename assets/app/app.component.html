@@ -1,2 +1,9 @@
-<h1>Working</h1>
-<md-spinner></md-spinner>
+
+<ul style="list-style: none;position:fixed;margin-top: 20%;margin-left: 0px;z-index:100;">
+    <li style="padding-bottom:5%;"><a md-fab [routerLink]="['homepage']" color="primary" mdTooltip="Homepage" ><md-icon>home</md-icon></a></li>
+    <li style="padding-bottom:5%;"><a md-fab routerLink="." color="warn" mdTooltip="Complaints" ><md-icon>report_problem</md-icon></a></li>
+    <li style="padding-bottom:5%;"><a md-fab routerLink="." mdTooltip="Suggestions"><md-icon>add</md-icon></a></li>
+</ul>
+
+<router-outlet></router-outlet>
+
