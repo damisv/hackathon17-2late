@@ -23,6 +23,12 @@ export class AdminService {
         return this.http.post('admin/addCategory', body, {headers: headers})
             .map(response => response.json());
     }
+    addComplain(complain):Observable<any>{
+        const body = JSON.stringify({complain:complain});
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.post('complain/one', body, {headers: headers})
+            .map(response => response.json());
+    }
     removeCategory(category):Observable<any>{
         const body = JSON.stringify({category:category});
         const headers = new Headers({'Content-Type': 'application/json'});
