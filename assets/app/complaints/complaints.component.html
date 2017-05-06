@@ -1,5 +1,17 @@
-<agm-map #mMap (mapClick)="onMapClicked($event)" [latitude]="lat" [longitude]="lng">
+        <!--<input size="60" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">-->
 
-        <agm-marker *ngFor="let complaint of complaints" [latitude]="complaint.lat" [longitude]="complaint.lng"><agm-info-window>{{ complaint?.name}}</agm-info-window></agm-marker>
+        <md-input-container style="width:100%">
+                <input  mdInput placeholder="Search for an address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+        </md-input-container>
+
+
+        <p>Is there something that bothers you ?</p><button md-raised-button [routerLink]="['/file']">File  a complaint</button>
+
+        <br>
+<hr>
+<agm-map #mMap (mapClick)="onMapClicked($event)" [latitude]="latitude" [longitude]="longitude">
+
+        <agm-marker *ngFor="let complaint of complaints;let i=index" (markerClick)="openDialog(complaint)"  [latitude]="complaint.lat" [longitude]="complaint.lng"></agm-marker>
 
 </agm-map>
+{{ selectedOption }}

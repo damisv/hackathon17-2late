@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@types/core-js": "^0.9.37",
+    "@types/googlemaps": "^3.26.11",
     "@types/hammerjs": "^2.0.34",
     "@types/node": "^7.0.8",
     "@types/socket.io-client": "^1.4.29",

@@ -1,0 +1,86 @@
+
+<md-card class="nostyle">
+    <md-card-title>
+        File a new complaint
+    </md-card-title>
+    <md-card-subtitle>
+        Here you can file a new complaint about something that bothers you , based on one of the categories available
+    </md-card-subtitle>
+    <md-card-content>
+
+        <md-grid-list cols="2" rowheight="200px">
+
+            <md-grid-tile [colspan]="1" [rowspan]="1">
+
+                <div class="form">
+                    <md-slide-toggle [(ngModel)]="anonymous">
+                        <span *ngIf="anonymous">Show my info!</span>
+                        <span *ngIf="!anonymous">File it anonymously!</span>
+                    </md-slide-toggle>
+
+                    <table class="full-width" cellspacing="0"><tr>
+
+
+                        <td><md-input-container class="full-width">
+                            <input mdInput placeholder="Category" [mdAutocomplete]="auto" [formControl]="categoryCtrl">
+                        </md-input-container>
+                            <md-autocomplete #auto="mdAutocomplete">
+                                <md-option *ngFor="let category of filteredCategories | async" [value]="category">
+                                    {{ category }}
+                                </md-option>
+                            </md-autocomplete>
+                        </td>
+                        <td><md-input-container class="full-width">
+                            <input mdInput placeholder="Name of complaint" [(ngModel)]="complaint.name">
+                        </md-input-container></td>
+
+                    </tr></table>
+
+                    <p>
+                        <md-input-container class="full-width">
+                            <textarea mdInput placeholder="Description" [(ngModel)]="complaint.description"></textarea>
+                        </md-input-container>
+                    </p>
+
+                    <p>
+                        <md-input-container class="full-width">
+                            <input  mdInput placeholder="Search for an address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+                        </md-input-container>
+                    </p>
+
+
+
+                    <table *ngIf="!anonymous" class="full-width" cellspacing="0"><tr>
+                        <td><md-input-container class="full-width">
+                            <input mdInput placeholder="Firstname of complainer" [(ngModel)]="complaint.complainer_firstname">
+                        </md-input-container></td>
+
+                        <td><md-input-container class="full-width">
+                            <input mdInput placeholder="Lastname of complainer" [(ngModel)]="complaint.complainer_lastname">
+                        </md-input-container></td>
+                    </tr></table>
+
+                </div>
+
+            </md-grid-tile>
+
+            <md-grid-tile [colspan]="1" [rowspan]="1">
+                <agm-map #mMap [latitude]="latitude" [longitude]="longitude" class="raised-card">
+
+                    <agm-marker *ngIf="complaint" [latitude]="complaint.latitude" [longitude]="complaint.longitude"></agm-marker>
+
+                </agm-map>
+            </md-grid-tile>
+
+        </md-grid-list>
+
+
+
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button>File  {{ complaint.name }}</button>
+    </md-card-actions>
+    <md-card-footer>
+        Fields with * (asterisk) must be filled.
+    </md-card-footer>
+</md-card>
