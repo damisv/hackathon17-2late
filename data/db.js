@@ -60,6 +60,24 @@ module.exports = {
             }
         })
     },
+    removeComplaintsOfCategory:function(category,success,fail){
+        db.collection("complaints").deleteMany({category:category},function(err,result){
+            if(result.deletedCount>0){
+                success();
+            }else{
+                fail();
+            }
+        })
+    },
+    removeAllComplaints:function(success,fail){
+        db.collection("complaints").deleteMany({},function(err,result){
+            if(!err){
+                success();
+            }else{
+                fail();
+            }
+        })
+    },
     findDistinctCategoriesFromComplaints:function(success,fail){
         db.collection("complaints").distinct("category",function(err,result){
             if(!err){

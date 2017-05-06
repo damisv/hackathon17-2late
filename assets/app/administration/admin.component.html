@@ -1,0 +1,18 @@
+<h1>Complaints</h1>
+<md-select placeholder="Filter" [(ngModel)]="filterCategory">
+    <md-option *ngFor="let category of distinctCategories" [value]="category">{{category}}</md-option>
+</md-select>
+<button (click)="deleteFilteredComplaints()">Delete all filtered</button>
+<div *ngFor="let complaint of complaints; let i = index">
+    <h1 *ngIf="categorySearch(complaint.category)" >{{complaint.name}} {{complaint._id}} {{complaint.category}} <button (click)="removeComplaint(i)">{{i}}</button></h1>
+</div>
+<input #box (keydown.enter)="addCategory(box.value)" type="text" placeholder="new category">
+<h1>Category: {{newCategory}} saved</h1>
+
+<div *ngFor="let category of categories; let i = index">
+    <h1>{{category.name}} <button (click)="removeCategory(i)">{{i}}</button></h1>
+</div>
+<h1>Distinct Categories</h1>
+<div *ngFor="let category of distinctCategories; let i = index">
+    <h1>{{category}} <button (click)="removeCategory(i)">{{i}}</button></h1>
+</div>

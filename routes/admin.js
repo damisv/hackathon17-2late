@@ -64,4 +64,24 @@ router.post('/removeCategory', function(req, res, next) {
     }
 });
 
+router.post('/removeComplaintOfCategory', function(req, res, next) {
+    db.removeComplaintsOfCategory(req.body.category,success,fail);
+    function success(){
+        res.send({category:req.body.category});
+    }
+    function fail(){
+        res.status(200).send();
+    }
+});
+
+router.post('/removeAllComplaints', function(req, res, next) {
+    db.removeAllComplaints(success,fail);
+    function success(){
+        res.send({ok:"ok"});
+    }
+    function fail(){
+        res.status(200).send();
+    }
+});
+
 module.exports = router;
