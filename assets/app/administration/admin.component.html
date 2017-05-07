@@ -42,7 +42,7 @@
                     <md-tab label="Complaints View">
                         <table style="padding-top:0;padding-bottom:0">
                             <tr *ngFor="let complaint of complaints; let i = index">
-                                <td *ngIf="categorySearch(complaint.category)"><md-checkbox></md-checkbox></td>
+                                <td *ngIf="categorySearch(complaint.category)"><md-checkbox (checked)="checkthis(complaint._id)"></md-checkbox></td>
                                 <td *ngIf="categorySearch(complaint.category)">{{ i+1 }}</td>
                                 <td *ngIf="categorySearch(complaint.category)" >{{complaint.name}}</td>
                                 <td *ngIf="categorySearch(complaint.category)" >{{ complaint?.status }}</td>

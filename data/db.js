@@ -29,26 +29,14 @@ module.exports = {
     modifyAccountType:function (account_type) {
         return db.collection("account_types").insertOne(account_type);
     },
-    findReportedComplaint:function (complaint,success,fail) {
+    findReportedComplaint:function (complaint) {
        return db.collection("reported_complaints").findOne({complaint_id:complaint._id});
     },
-    modifyReportedComplaint:function (complaint,success,fail) {
-        db.collection("reported_complaints").insertOne(complaint,function(err,result){
-            if(!err){
-                success();
-            }else{
-                fail();
-            }
-        });
+    increaseReportedComplaint:function (complaint,success,fail) {
+        return db.collection("reported_complaints").updateOne(complaint,{ $inc: { reports: 1 } });
     },
-    createReportedComplaint:function (complaint,success,fail) {
-        db.collection("reported_complaints").insertOne({complaint_id:complaint._id,reports:1,reporters:[]},function(err,result){
-            if(!err){
-                success();
-            }else{
-                fail();
-            }
-        });
+    createReportedComplaint:function (complaint) {
+        return db.collection("reported_complaints").insertOne({complaint_id:complaint._id,reports:1,reporters:[]});
     },
     getAccountType:function (typeName,success,fail) {
         db.collection("complaints").findOne({name:typeName},function(err,result){
@@ -66,7 +54,7 @@ module.exports = {
         return db.collection("complaints").find().toArray();
     },
     findComplaintById:function (id) {
-        return db.collection("complaints").findOne({_id:ObjectID(id)}).toArray();
+        return db.collection("complaints").findOne({_id:ObjectID(id)});
     },
     findAllCategories:function () {
         return db.collection("categories").find().toArray();

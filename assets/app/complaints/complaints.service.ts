@@ -15,6 +15,12 @@ export class ComplaintService {
 
     }
 
+    getComplaintById(id): Observable<any> {
+        return this.http.get("/complaints/one/"+id)
+            .map(response => response.json());
+
+    }
+
     addComplain(complain):Observable<any>{
         const body = JSON.stringify({complain:complain});
         const headers = new Headers({'Content-Type': 'application/json'});

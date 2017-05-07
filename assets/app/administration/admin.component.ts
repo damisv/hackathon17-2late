@@ -16,6 +16,8 @@ export class AdminComponent {
     filterCategory = null;
     accountTypes;
 
+
+
     privileges = ['admin','editor'];
     privilegesCtrl;
     filteredPrivileges;
@@ -54,6 +56,10 @@ export class AdminComponent {
         return privilege ? this.privileges.filter(s => new RegExp(`^${privilege}`, 'gi').test(s))
             : this.privileges;
     }
+
+   checkthis(id){
+
+   }
 
     @ViewChild('sidenav') sidenav;
 

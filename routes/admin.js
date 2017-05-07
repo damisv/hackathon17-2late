@@ -100,14 +100,7 @@ router.post('/modifyAccountType', function(req, res) {
         );
 });
 
-router.post('/reportComplaint', function(req) {
-    db.findReportedComplaint(req.body.complaint)
-        .then(function(result){
-            result.reports++;
-            db.modifyReportedComplaint(result);
-            //db.createReportedComplaint(req.body.complaint);
-        });
-});
+
 
 router.get('/accountTypes', function(req, res) {
     db.findAllAccountTypes()

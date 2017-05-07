@@ -22,10 +22,16 @@ export class DetailedViewComponent implements OnInit{
         this.activatedRoute.params.subscribe((params: Params) => {
             let complaintId = params['id'];
             this.complaintId = complaintId;
-            console.log(this.complaintId);
+            this.complaintService.getComplaintById(complaintId).subscribe( res => {
+                this.complaint = new Complaint(res.complaint._id,res.complaint.latitude,res.complaint.longitude,
+                    res.complaint.category,res.complaint.name,res.complaint.complainerType,res.complaint.dateAdded,
+                    res.complaint.status,res.complaint.dateSolved,res.complaint.description,res.complaint.complainer_firstname,
+                    res.complaint.complainer_lastname);
+            });
+
+            //(this.complaint.complainerType=='anonymous')? this.anonymous = true : this.anonymous=false ;
 
         });
-        /*this.complaintService.getComplaint(this.complaintId).subscribe( res => this.complaint = res);*/
         this.complaint = new Complaint(this.complaintId,41.089798,23.544769,'Leaks','Test','anonymous','23-23-23','Unsolved','','askgnakfsjnakjdfgkjandf');
         (this.complaint.complainerType=='anonymous')? this.anonymous = true : this.anonymous=false ;
 

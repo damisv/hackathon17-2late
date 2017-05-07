@@ -10,10 +10,12 @@ router.get('/all', function(req, res) {
         });
 });
 
-router.get('/one/+id', function(req, res) {
+router.get('/one/:id', function(req, res) {
+    console.log(req.params.id);
     db.findComplaintById(req.params.id)
         .then(function(result){
-            res.send({complaints:result});
+            console.log(result);
+            res.send({complaint:result});
         });
 });
 
@@ -21,15 +23,17 @@ router.post('/add', function(req, res) {
     delete req.body.complain._id;
     db.addComplain(req.body.complain)
         .then(function (result) {
+            db.createReportedComplaint(result)
             res.send({complain:req.body.complain});
         });
 });
 
-router.post('/report', function(req, res) {
-    db.reportComplaint(req.body.complaint)
-        .then(
-            //res.send({complain:req.body.complain});
-        );
+router.post('/reportComplaint', function(req) {
+    db.increaseReportedComplaint(result)
+        .then(function(result){
+            res.send();
+        });
+
 });
 
 module.exports = router;
