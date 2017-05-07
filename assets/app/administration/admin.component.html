@@ -1,18 +1,76 @@
-<h1>Complaints</h1>
-<md-select placeholder="Filter" [(ngModel)]="filterCategory">
-    <md-option *ngFor="let category of distinctCategories" [value]="category">{{category}}</md-option>
-</md-select>
-<button (click)="deleteFilteredComplaints()">Delete all filtered</button>
-<div *ngFor="let complaint of complaints; let i = index">
-    <h1 *ngIf="categorySearch(complaint.category)" >{{complaint.name}} {{complaint._id}} {{complaint.category}} <button (click)="removeComplaint(i)">{{i}}</button></h1>
-</div>
-<input #box (keydown.enter)="addCategory(box.value)" type="text" placeholder="new category">
-<h1>Category: {{newCategory}} saved</h1>
 
-<div *ngFor="let category of categories; let i = index">
-    <h1>{{category.name}} <button (click)="removeCategory(i)">{{i}}</button></h1>
-</div>
-<h1>Distinct Categories</h1>
-<div *ngFor="let category of distinctCategories; let i = index">
-    <h1>{{category}} <button (click)="removeCategory(i)">{{i}}</button></h1>
-</div>
+
+<!--
+
+-->
+<md-toolbar color="primary">
+    <span><md-icon  (click)="sidenav.open()">menu</md-icon></span>
+    <md-toolbar-row>
+        <span>Username</span>
+        <span class="example-spacer"></span>
+        <md-icon class="example-icon">verified_user</md-icon>
+    </md-toolbar-row>
+    <md-toolbar-row>
+        <span><h1>{{ filterCategory }}</h1></span>
+        <span class="example-spacer"></span>
+        <md-icon class="example-icon"></md-icon>
+    </md-toolbar-row>
+
+</md-toolbar>
+<md-sidenav-container class="container">
+
+    <md-sidenav #sidenav class="sidenav">
+        <span>Categories</span>
+        <md-list>
+            <md-list-item *ngFor="let category of distinctCategories" (click)="changeCategory(category)">
+                <md-icon md-list-icon>folder</md-icon>
+                <h4 md-line >{{category}}</h4>
+                <p md-line>{{category}}</p>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div class="sidenav-content">
+
+
+       <!-- <h1>Complaints</h1>
+        <md-select placeholder="Filter" [(ngModel)]="filterCategory">
+            <md-option *ngFor="let category of distinctCategories" [value]="category">{{category}}</md-option>
+        </md-select>
+        <button (click)="deleteFilteredComplaints()">Delete all filtered</button>-->
+        <table>
+            <tr *ngFor="let complaint of complaints; let i = index">
+                <td *ngIf="categorySearch(complaint.category)"><md-checkbox></md-checkbox></td>
+                <td *ngIf="categorySearch(complaint.category)">{{ i+1 }}</td>
+                <td *ngIf="categorySearch(complaint.category)" >{{complaint.name}}</td>
+                <td *ngIf="categorySearch(complaint.category)" >{{ complaint?.status }}</td>
+                <td *ngIf="categorySearch(complaint.category)" >{{ complaint?.dateAdded}}</td>
+            </tr>
+        </table>
+        <!--<input #box (keydown.enter)="addCategory(box.value)" type="text" placeholder="new category">
+        <h1>Category: {{newCategory}} saved</h1>
+
+        <div *ngFor="let category of categories; let i = index">
+            <h1>{{category.name}} <button (click)="removeCategory(i)">{{i}}</button></h1>
+        </div>
+        <h1>Distinct Categories</h1>
+        <div *ngFor="let category of distinctCategories; let i = index">
+            <h1>{{category}} <button (click)="removeCategory(i)">{{i}}</button></h1>
+        </div>-->
+
+
+        <!--
+        <table>
+        <ng-template *ngFor="let complaint of complaints; let i = index">
+            <tr *ngIf="categorySearch(complaint.category)">
+                <td><md-checkbox></md-checkbox></td>
+                <td>{{ i+1 }}</td>
+                <td>{{ complaint?.name}}</td>
+                <td>{{ complaint?.status }}</td>
+                <td>{{ complaint?.dateAdded}}</td>
+            </tr>
+        </ng-template>
+        </table>-->
+
+    </div>
+
+</md-sidenav-container>

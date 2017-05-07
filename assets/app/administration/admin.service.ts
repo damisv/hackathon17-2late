@@ -7,6 +7,17 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AdminService {
     constructor(private http:Http){}
+    post(obj,url):Observable<any>{
+        const body = JSON.stringify(obj);
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.post(url, body, {headers: headers})
+            .map(response => response.json());
+    }
+    get(url):Observable<any>{
+        return this.http.get(url)
+            .map(response => response.json());
+
+    }
     getAllComplaints():Observable<any>{
         return this.http.get("/admin/complaints")
             .map(response => response.json());
@@ -21,6 +32,12 @@ export class AdminService {
         const body = JSON.stringify({categoryName:categoryName});
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post('admin/addCategory', body, {headers: headers})
+            .map(response => response.json());
+    }
+    addComplain(complain):Observable<any>{
+        const body = JSON.stringify({complain:complain});
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.post('complain/one', body, {headers: headers})
             .map(response => response.json());
     }
     removeCategory(category):Observable<any>{

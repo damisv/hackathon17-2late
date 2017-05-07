@@ -19,10 +19,8 @@
                     </md-slide-toggle>
 
                     <table class="full-width" cellspacing="0"><tr>
-
-
-                        <td><md-input-container>
-                            <input mdInput placeholder="Category" [mdAutocomplete]="auto" [formControl]="categoryCtrl">
+                        <td><md-input-container class="full-width">
+                            <input mdInput placeholder="Category" [mdAutocomplete]="auto" [formControl]="categoryCtrl" [(ngModel)]="complaint.category">
                         </md-input-container>
                             <md-autocomplete #auto="mdAutocomplete">
                                 <md-option *ngFor="let category of filteredCategories | async" [value]="category">
@@ -65,7 +63,7 @@
             </md-grid-tile>
 
             <md-grid-tile [colspan]="1" [rowspan]="1">
-                <agm-map #mMap [latitude]="latitude" [longitude]="longitude" class="raised-card">
+                <agm-map #mMap (mapClick)="onMapClicked($event)" [latitude]="latitude" [longitude]="longitude" class="raised-card">
 
                     <agm-marker *ngIf="complaint" [latitude]="complaint.latitude" [longitude]="complaint.longitude"></agm-marker>
 
@@ -78,7 +76,7 @@
 
     </md-card-content>
     <md-card-actions>
-        <button md-raised-button>File  {{ complaint.name }}</button>
+        <button md-raised-button (click)="fileComplaint()">File  {{ complaint.name }}</button>
     </md-card-actions>
     <md-card-footer>
         Fields with * (asterisk) must be filled.

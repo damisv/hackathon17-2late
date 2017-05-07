@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {AdminService} from "./admin.service";
 import {isNullOrUndefined} from "util";
 
@@ -13,6 +13,8 @@ export class AdminComponent {
     categories;
     distinctCategories;
     filterCategory = null;
+    accountTypes;
+
     constructor(private adminService:AdminService){
         adminService.getAllComplaints().subscribe(
             res=>{
@@ -29,7 +31,46 @@ export class AdminComponent {
                 this.distinctCategories = res.categories;
                 this.distinctCategories.push("all");
                 this.filterCategory = "all";
-            })
+            });
+        adminService.get("/admin/accountTypes").subscribe(
+            res =>{
+                this.accountTypes = res.account_types;
+            }
+        )
+    }
+
+    @ViewChild('sidenav') sidenav;
+
+    changeCategory(category){
+        this.filterCategory = category;
+        this.sidenav.close();
+    }
+
+    rows = [
+        { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+        { name: 'Dany', gender: 'Male', company: 'KFC' },
+        { name: 'Molly', gender: 'Female', company: 'Burger King' },
+    ];
+    columns = [
+        { prop: 'name' },
+        { name: 'Gender' },
+        { name: 'Company' }
+    ];
+
+
+    createAccountType(typeName){
+        this.adminService.post({typeName:typeName},"/createAccountType").subscribe(
+            res =>{
+                this.accountTypes.push(res.account_type);
+            }
+        )
+    }
+    modifyAccountType(index){
+        this.adminService.post({account_type:this.accountTypes[index]},"/modifyAccountType").subscribe(
+            res=> {
+                this.accountTypes[index] = res.account_type;
+            }
+        )
     }
     addCategory(categoryName){
     this.adminService.addCategory(categoryName).subscribe(

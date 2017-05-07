@@ -13,10 +13,14 @@ import {HomepageComponent} from "./homepage/homepage.component";
 import {routing} from "./app.routing";
 import {ComplaintsComponent} from "./complaints/complaints.component";
 import {FooterComponent} from "./footer/footer.component";
-import {AgmCoreModule} from "@agm/core";
+import {AgmCoreModule, GoogleMapsAPIWrapper, MarkerManager} from "@agm/core";
 import {DialogMarkerComponent} from "./complaints/dialogmarker.component";
 import {FileComplaintComponent} from "./complaints/filecomplaint.component";
-
+import {ComplaintService} from "./complaints/complaints.service";
+import {AdminService} from "./administration/admin.service";
+import {DetailedViewComponent} from "./complaints/detailedview.component";
+import {AdminComponent} from "./administration/admin.component";
+import {CitizenComponent} from "./citizen.component";
 
 
 @NgModule({
@@ -25,8 +29,11 @@ import {FileComplaintComponent} from "./complaints/filecomplaint.component";
         HomepageComponent,
         ComplaintsComponent,
         FileComplaintComponent,
+        DetailedViewComponent,
         FooterComponent,
-        DialogMarkerComponent
+        DialogMarkerComponent,
+        AdminComponent,
+        CitizenComponent
     ],
     imports: [
         BrowserModule,
@@ -44,7 +51,11 @@ import {FileComplaintComponent} from "./complaints/filecomplaint.component";
         require('highcharts/highcharts-3d'),
         require('highcharts/modules/exporting'))
     ],
-    providers: [],
+    providers: [ComplaintService,
+            AdminService,
+        MarkerManager,
+        GoogleMapsAPIWrapper
+        ],
     entryComponents: [
         DialogMarkerComponent
     ],

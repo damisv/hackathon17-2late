@@ -1,10 +1,12 @@
 import {Component, ViewChild, OnInit, ElementRef, NgZone} from "@angular/core";
 import {FormControl} from "@angular/forms";
 
-import { MapsAPILoader } from '@agm/core';
+import {AgmMarker, MapsAPILoader, MarkerManager} from '@agm/core';
 
 import {} from '@types/googlemaps';
 import {Complaint} from "../models/complaint";
+import {ComplaintService} from "./complaints.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -20,7 +22,7 @@ export class FileComplaintComponent implements OnInit{
 
     anonymous:Boolean=false;
 
-    complaint:Complaint=new Complaint(null,null,'','','false','','')
+    complaint:Complaint=new Complaint('',null,null,'','','public','','')
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -29,6 +31,7 @@ export class FileComplaintComponent implements OnInit{
 
     categoryCtrl: FormControl;
     filteredCategories: any;
+
 
     categories = [
         'Traffic Lights',
@@ -45,7 +48,11 @@ export class FileComplaintComponent implements OnInit{
 
     constructor(
         private mapsAPILoader: MapsAPILoader,
-        private ngZone: NgZone)
+        private ngZone: NgZone,
+        private complaintService: ComplaintService,
+        private router: Router,
+        private markerManager: MarkerManager
+    )
     {
 
         this.categoryCtrl = new FormControl();
@@ -59,6 +66,13 @@ export class FileComplaintComponent implements OnInit{
         return category ? this.categories.filter(s => new RegExp(`^${category}`, 'gi').test(s))
             : this.categories;
     }
+
+
+    onMapClicked(event){
+        this.complaint.longitude = event.coords.lng;
+        this.complaint.latitude = event.coords.lat;
+    }
+
 
 
     ngOnInit(){
@@ -88,6 +102,7 @@ export class FileComplaintComponent implements OnInit{
                     //set latitude, longitude and zoom
                     this.latitude = place.geometry.location.lat();
                     this.longitude = place.geometry.location.lng();
+
                     this.complaint.latitude = place.geometry.location.lat();
                     this.complaint.longitude = place.geometry.location.lng();
                     this.mMap.zoom = 12;
@@ -95,6 +110,14 @@ export class FileComplaintComponent implements OnInit{
             });
         });
 
+    }
+
+    fileComplaint(){
+        (this.anonymous)? this.complaint.complainerType='anonymous' : this.complaint.complainerType='public';
+        console.log(this.complaint);
+        this.complaintService.addComplain(this.complaint).subscribe();
+
+        //this.router.navigateByUrl('/citizen/complaints');
     }
 
 }
