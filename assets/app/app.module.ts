@@ -16,6 +16,9 @@ import {FooterComponent} from "./footer/footer.component";
 import {AgmCoreModule} from "@agm/core";
 import {DialogMarkerComponent} from "./complaints/dialogmarker.component";
 import {FileComplaintComponent} from "./complaints/filecomplaint.component";
+import {ComplaintService} from "./complaints/complaints.service";
+import {AdminService} from "./administration/admin.service";
+import {DetailedViewComponent} from "./complaints/detailedview.component";
 
 
 
@@ -25,6 +28,7 @@ import {FileComplaintComponent} from "./complaints/filecomplaint.component";
         HomepageComponent,
         ComplaintsComponent,
         FileComplaintComponent,
+        DetailedViewComponent,
         FooterComponent,
         DialogMarkerComponent
     ],
@@ -44,7 +48,9 @@ import {FileComplaintComponent} from "./complaints/filecomplaint.component";
         require('highcharts/highcharts-3d'),
         require('highcharts/modules/exporting'))
     ],
-    providers: [],
+    providers: [ComplaintService,
+            AdminService
+        ],
     entryComponents: [
         DialogMarkerComponent
     ],

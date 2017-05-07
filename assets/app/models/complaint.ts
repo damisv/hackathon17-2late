@@ -1,5 +1,7 @@
 export class Complaint{
-    constructor(public latitude: Number,
+    constructor(
+                public complaintID: String,
+                public latitude: Number,
                 public longitude: Number,
                 public category: String,
                 public name: String,

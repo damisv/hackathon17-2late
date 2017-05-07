@@ -78,7 +78,7 @@
 
     </md-card-content>
     <md-card-actions>
-        <button md-raised-button>File  {{ complaint.name }}</button>
+        <button md-raised-button (click)="fileComplaint()">File  {{ complaint.name }}</button>
     </md-card-actions>
     <md-card-footer>
         Fields with * (asterisk) must be filled.
