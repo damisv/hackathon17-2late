@@ -10,6 +10,7 @@ const APP_ROUTES: Routes = [
     { path: 'homepage', component: HomepageComponent},
     { path: 'complaints', component: ComplaintsComponent},
     { path: 'file', component: FileComplaintComponent},
+    { path: 'detailed',redirectTo: '/complaints', pathMatch: 'full'},
     { path: 'detailed/:id', component: DetailedViewComponent},/*
     { path: 'suggestions', component: SuggestionComponent}*/
 ];

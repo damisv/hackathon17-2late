@@ -7,17 +7,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AdminService {
     constructor(private http:Http){}
-    post(obj,url):Observable<any>{
-        const body = JSON.stringify(obj);
-        const headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post(url, body, {headers: headers})
-            .map(response => response.json());
-    }
-    get(url):Observable<any>{
-        return this.http.get(url)
-            .map(response => response.json());
-
-    }
     getAllComplaints():Observable<any>{
         return this.http.get("/admin/complaints")
             .map(response => response.json());

@@ -11,7 +11,7 @@
 <hr>
 <agm-map #mMap (mapClick)="onMapClicked($event)" [latitude]="latitude" [longitude]="longitude">
 
-        <agm-marker *ngFor="let complaint of complaints;let i=index" (markerClick)="openDialog(complaint)"  [latitude]="complaint.lat" [longitude]="complaint.lng"></agm-marker>
+        <agm-marker *ngFor="let complaint of complaints;let i=index" (markerClick)="openDialog(complaint)"  [latitude]="complaint.latitude" [longitude]="complaint.longitude"></agm-marker>
 
 </agm-map>
 {{ selectedOption }}

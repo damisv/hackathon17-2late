@@ -13,7 +13,6 @@ export class AdminComponent {
     categories;
     distinctCategories;
     filterCategory = null;
-    accountTypes;
     constructor(private adminService:AdminService){
         adminService.getAllComplaints().subscribe(
             res=>{
@@ -30,26 +29,7 @@ export class AdminComponent {
                 this.distinctCategories = res.categories;
                 this.distinctCategories.push("all");
                 this.filterCategory = "all";
-            });
-        adminService.get("/accountTypes").subscribe(
-            res =>{
-                this.accountTypes = res.account_types;
-            }
-        )
-    }
-    createAccountType(typeName){
-        this.adminService.post({typeName:typeName},"/createAccountType").subscribe(
-            res =>{
-                this.accountTypes.push(res.account_type);
-            }
-        )
-    }
-    modifyAccountType(index){
-        this.adminService.post({account_type:this.accountTypes[index]},"/modifyAccountType").subscribe(
-            res=> {
-                this.accountTypes[index] = res.account_type;
-            }
-        )
+            })
     }
     addCategory(categoryName){
     this.adminService.addCategory(categoryName).subscribe(

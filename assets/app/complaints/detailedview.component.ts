@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Complaint} from "../models/complaint";
 import {ComplaintService} from "./complaints.service";
 
@@ -23,6 +23,7 @@ export class DetailedViewComponent implements OnInit{
             let complaintId = params['id'];
             this.complaintId = complaintId;
             console.log(this.complaintId);
+
         });
         /*this.complaintService.getComplaint(this.complaintId).subscribe( res => this.complaint = res);*/
         this.complaint = new Complaint(this.complaintId,41.089798,23.544769,'Leaks','Test','anonymous','23-23-23','Unsolved','','askgnakfsjnakjdfgkjandf');
