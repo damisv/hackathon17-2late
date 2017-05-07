@@ -19,10 +19,8 @@
                     </md-slide-toggle>
 
                     <table class="full-width" cellspacing="0"><tr>
-
-
                         <td><md-input-container class="full-width">
-                            <input mdInput placeholder="Category" [mdAutocomplete]="auto" [formControl]="categoryCtrl">
+                            <input mdInput placeholder="Category" [mdAutocomplete]="auto" [formControl]="categoryCtrl" [(ngModel)]="complaint.category">
                         </md-input-container>
                             <md-autocomplete #auto="mdAutocomplete">
                                 <md-option *ngFor="let category of filteredCategories | async" [value]="category">

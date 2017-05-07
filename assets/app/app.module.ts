@@ -19,6 +19,8 @@ import {FileComplaintComponent} from "./complaints/filecomplaint.component";
 import {ComplaintService} from "./complaints/complaints.service";
 import {AdminService} from "./administration/admin.service";
 import {DetailedViewComponent} from "./complaints/detailedview.component";
+import {AdminComponent} from "./administration/admin.component";
+import {CitizenComponent} from "./citizen.component";
 
 
 
@@ -30,7 +32,9 @@ import {DetailedViewComponent} from "./complaints/detailedview.component";
         FileComplaintComponent,
         DetailedViewComponent,
         FooterComponent,
-        DialogMarkerComponent
+        DialogMarkerComponent,
+        AdminComponent,
+        CitizenComponent
     ],
     imports: [
         BrowserModule,

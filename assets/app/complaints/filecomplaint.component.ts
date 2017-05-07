@@ -6,6 +6,7 @@ import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 import {Complaint} from "../models/complaint";
 import {ComplaintService} from "./complaints.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class FileComplaintComponent implements OnInit{
 
     anonymous:Boolean=false;
 
-    complaint:Complaint=new Complaint('',null,null,'','','false','','')
+    complaint:Complaint=new Complaint('',null,null,'','','public','','')
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -47,7 +48,8 @@ export class FileComplaintComponent implements OnInit{
     constructor(
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
-        private complaintService: ComplaintService
+        private complaintService: ComplaintService,
+        private router: Router
     )
     {
 
@@ -103,6 +105,7 @@ export class FileComplaintComponent implements OnInit{
     fileComplaint(){
         (this.anonymous)? this.complaint.complainerType='anonymous' : this.complaint.complainerType='public';
         this.complaintService.addComplain(this.complaint).subscribe();
+        this.router.navigateByUrl('/citizen/complaints');
     }
 
 }

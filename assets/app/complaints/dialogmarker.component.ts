@@ -34,8 +34,8 @@ export class DialogMarkerComponent implements OnInit {
     ) {}
 
     viewComplaint(){
-        console.log(this.complaint.complaintID);
-        this.router.navigateByUrl('/detailed/'+this.complaint.complaintID);
+        console.log(this.complaint._id);
+        this.router.navigateByUrl('/citizen/detailed/'+this.complaint._id);
         this.dialogRef.close();
     }
 

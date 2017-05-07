@@ -1,6 +1,6 @@
 export class Complaint{
     constructor(
-                public complaintID: String,
+                public _id: String,
                 public latitude: Number,
                 public longitude: Number,
                 public category: String,

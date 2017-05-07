@@ -1,17 +1,14 @@
 import {RouterModule, Routes} from "@angular/router";
-import {HomepageComponent} from "./homepage/homepage.component";
-import {ComplaintsComponent} from "./complaints/complaints.component";
-import {FileComplaintComponent} from "./complaints/filecomplaint.component";
-import {DetailedViewComponent} from "./complaints/detailedview.component";
+
+import {AdminComponent} from "./administration/admin.component";
+import {CitizenComponent} from "./citizen.component";
+import {CITIZEN_ROUTES} from "./citizen.routes";
 
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: '/homepage', pathMatch: 'full'},
-    { path: 'homepage', component: HomepageComponent},
-    { path: 'complaints', component: ComplaintsComponent},
-    { path: 'file', component: FileComplaintComponent},
-    { path: 'detailed',redirectTo: '/complaints', pathMatch: 'full'},
-    { path: 'detailed/:id', component: DetailedViewComponent},/*
+    { path: '', redirectTo: 'citizen', pathMatch: 'full'},
+    { path: 'citizen',component: CitizenComponent, children: CITIZEN_ROUTES},
+    { path: 'admin', component: AdminComponent}/*
     { path: 'suggestions', component: SuggestionComponent}*/
 ];
 
