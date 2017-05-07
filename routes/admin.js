@@ -31,6 +31,13 @@ router.post('/addCategory', function(req) {
         });
 });
 
+router.post('/createUser', function(req) {
+    db.addUser(req.body.user)
+        .then(function (result) {
+            console.log(result.ops[0].name);
+        });
+});
+
 /*router.post('/addCategory', function(req, res, next) {
     console.log("1");
     db.addCategory(req.body.categoryName,success,fail);

@@ -65,6 +65,9 @@ module.exports = {
     findAllComplaints:function () {
         return db.collection("complaints").find().toArray();
     },
+    findComplaintById:function (id) {
+        return db.collection("complaints").findOne({_id:ObjectID(id)}).toArray();
+    },
     findAllCategories:function () {
         return db.collection("categories").find().toArray();
     },
@@ -73,6 +76,9 @@ module.exports = {
     },
     addComplain:function(complain) {
         return db.collection("complaints").insertOne(complain);
+    },
+    addUser:function(complain) {
+        return db.collection("users").insertOne(user);
     },
     removeCategory:function(category){
         return db.collection("categories").deleteOne({_id:ObjectID(category._id)})
@@ -90,13 +96,7 @@ module.exports = {
         return db.collection("complaints").distinct("category")
     },
     userExists:function (user,success,fail) {
-        db.collection("users").findOne({name:user.name,password:user.password},function(err,result){
-            if(!err){
-                success(result);
-            }else{
-                fail();
-            }
-        });
+        return db.collection("users").findOne({name:user.name,password:user.password});
     },
     createUser:function(user) {
         return db.collection("users").insertOne(user);

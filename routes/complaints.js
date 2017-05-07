@@ -10,7 +10,15 @@ router.get('/all', function(req, res) {
         });
 });
 
+router.get('/one/+id', function(req, res) {
+    db.findComplaintById(req.params.id)
+        .then(function(result){
+            res.send({complaints:result});
+        });
+});
+
 router.post('/add', function(req, res) {
+    delete req.body.complain._id;
     db.addComplain(req.body.complain)
         .then(function (result) {
             res.send({complain:req.body.complain});
