@@ -3,37 +3,35 @@ var router = express.Router();
 var db = require('../data/db');
 
 /* GET home page. */
-router.get('/complaints', function(req, res, next) {
-    db.findAllComplaints(success,fail);
-    function success(result){
-        res.send({complaints:result});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.get('/complaints', function(req, res) {
+    db.findAllComplaints()
+        .then(function(result){
+            res.send({complaints:result});
+        });
 });
 
-router.get('/categories', function(req, res, next) {
-    db.findAllCategories(success,fail);
-    function success(result){
-        res.send({categories:result});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.get('/categories', function(req, res) {
+    db.findAllCategories()
+        .then(function(result){
+            res.send({categories:result});
+        });
 });
 
-router.get('/getDistinctCategories', function(req, res, next) {
-    db.findDistinctCategoriesFromComplaints(success,fail);
-    function success(result){
-        res.send({categories:result});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.get('/getDistinctCategories', function(req, res) {
+    db.findDistinctCategoriesFromComplaints()
+        .then(function(result){
+            res.send({categories:result});
+        });
 });
 
-router.post('/addCategory', function(req, res, next) {
+router.post('/addCategory', function(req) {
+    db.addCategory(req.body.categoryName)
+        .then(function (result) {
+            console.log(result.ops[0].name);
+        });
+});
+
+/*router.post('/addCategory', function(req, res, next) {
     console.log("1");
     db.addCategory(req.body.categoryName,success,fail);
     function success(result){
@@ -42,88 +40,79 @@ router.post('/addCategory', function(req, res, next) {
     function fail(){
         res.status(200).send();
     }
+});*/
+
+router.post('/removeComplaint', function(req, res) {
+    db.removeComplaint(req.body.complaint)
+        .then(function(result){
+            if(result.deletedCount>0){
+                res.send(req.body.complaint);
+            }
+        });
 });
 
-router.post('/removeComplaint', function(req, res, next) {
-    db.removeComplaint(req.body.complaint,success,fail);
-    function success(){
-        res.send(req.body.complaint);
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.post('/removeCategory', function(req, res) {
+    db.removeCategory(req.body.category)
+        .then(function(result){
+                if(result.deletedCount>0){
+                    res.send(req.body.category);
+                }
+            }
+        );
 });
 
-router.post('/removeCategory', function(req, res, next) {
-    db.removeCategory(req.body.category,success,fail);
-    function success(){
-        res.send(req.body.category);
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.post('/removeComplaintOfCategory', function(req, res) {
+    db.removeComplaintsOfCategory(req.body.category)
+        .then(function(result) {
+                if (result.deletedCount > 0) {
+                    res.send({category:req.body.category});
+                }
+            }
+        );
 });
 
-router.post('/removeComplaintOfCategory', function(req, res, next) {
-    db.removeComplaintsOfCategory(req.body.category,success,fail);
-    function success(){
-        res.send({category:req.body.category});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.post('/removeAllComplaints', function(req, res) {
+    db.removeAllComplaints()
+        .then(function(result){
+            res.send({ok:"ok"});
+        });
 });
 
-router.post('/removeAllComplaints', function(req, res, next) {
-    db.removeAllComplaints(success,fail);
-    function success(){
-        res.send({ok:"ok"});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.post('/createAccountType', function(req, res) {
+    db.createAccountType(req.body.typeName)
+        .then(function(result){
+            res.send({account_type:result});
+        });
 });
 
-router.post('/createAccountType', function(req, res, next) {
-    db.createAccountType(req.body.typeName,success,fail);
-    function success(result){
-        res.send({account_type:result});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.post('/modifyAccountType', function(req, res) {
+    db.modifyAccountType(req.body.account_type)
+        .then(function(result){
+            res.send({account_type:req.body.account_type});
+            }
+        );
 });
 
-router.post('/modifyAccountType', function(req, res, next) {
-    db.modifyAccountType(req.body.account_type,success,fail);
-    function success(){
-        res.send({account_type:req.body.account_type});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.post('/reportComplaint', function(req) {
+    db.findReportedComplaint(req.body.complaint)
+        .then(function(result){
+            result.reports++;
+            db.modifyReportedComplaint(result);
+            //db.createReportedComplaint(req.body.complaint);
+        });
 });
 
-router.post('/reportComplaint', function(req, res, next) {
-    db.findReportedComplaint(req.body.complaint,success,fail);
-
-    function success(reportedComplaint){
-        reportedComplaint.reports++;
-        db.modifyReportedComplaint(reportedComplaint);
-    }
-    function fail(){
-        db.createReportedComplaint(req.body.complaint);
-    }
+router.get('/accountTypes', function(req, res) {
+    db.findAllAccountTypes()
+        .then(function(err,result){
+            res.send({account_types:result});
+    });
 });
 
-router.get('/accountTypes', function(req, res, next) {
-    db.findAllAccountTypes(success,fail);
-    function success(result){
-        res.send({account_types:result});
-    }
-    function fail(){
-        res.status(200).send();
-    }
+router.post('/createUser', function(req) {
+    db.createUser(req.body.user).then(function (result) {
+        console.log(result);
+    });
 });
 
 module.exports = router;
