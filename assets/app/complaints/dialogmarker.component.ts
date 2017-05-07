@@ -17,7 +17,8 @@ import {Router} from "@angular/router";
         <div md-dialog-actions>
             <button md-button (click)="dialogRef.close()">Return to map</button>
             <button md-button (click)="viewComplaint()">Detailed View</button>
-            <button md-button (click)="reportComplaint()">Report Complaint</button>
+            <button style="margin: auto;" md-mini-fab color="warn"><md-icon>report</md-icon></button>
+            <button style="margin: auto;" md-mini-fab color="primary"><md-icon>thumb_up</md-icon></button>
         </div>
     `
 })
