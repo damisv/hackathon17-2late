@@ -13,10 +13,20 @@ router.get('/all', function(req, res, next) {
     }
 });
 
-router.post('/one', function(req, res, next) {
+router.post('/add', function(req, res, next) {
     db.addComplain(req.body.complain,success,fail);
     function success(){
-        res.send({category:req.body.complain});
+        res.send({complain:req.body.complain});
+    }
+    function fail(){
+        res.status(200).send();
+    }
+});
+
+router.post('/report', function(req, res, next) {
+    db.reportCompalint(req.body.complaint,success,fail);
+    function success(){
+        res.send({complain:req.body.complain});
     }
     function fail(){
         res.status(200).send();

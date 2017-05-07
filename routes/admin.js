@@ -84,4 +84,46 @@ router.post('/removeAllComplaints', function(req, res, next) {
     }
 });
 
+router.post('/createAccountType', function(req, res, next) {
+    db.createAccountType(req.body.typeName,success,fail);
+    function success(result){
+        res.send({account_type:result});
+    }
+    function fail(){
+        res.status(200).send();
+    }
+});
+
+router.post('/modifyAccountType', function(req, res, next) {
+    db.modifyAccountType(req.body.account_type,success,fail);
+    function success(){
+        res.send({account_type:req.body.account_type});
+    }
+    function fail(){
+        res.status(200).send();
+    }
+});
+
+router.post('/reportComplaint', function(req, res, next) {
+    db.findReportedComplaint(req.body.complaint,success,fail);
+
+    function success(reportedComplaint){
+        reportedComplaint.reports++;
+        db.modifyReportedComplaint(reportedComplaint);
+    }
+    function fail(){
+        db.createReportedComplaint(req.body.complaint);
+    }
+});
+
+router.get('/accountTypes', function(req, res, next) {
+    db.findAllAccountTypes(success,fail);
+    function success(result){
+        res.send({account_types:result});
+    }
+    function fail(){
+        res.status(200).send();
+    }
+});
+
 module.exports = router;

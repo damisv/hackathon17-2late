@@ -18,7 +18,7 @@ export class ComplaintService {
     addComplain(complain):Observable<any>{
         const body = JSON.stringify({complain:complain});
         const headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post('complaints/one', body, {headers: headers})
+        return this.http.post('complaints/add', body, {headers: headers})
             .map(response => response.json());
     }
 }

@@ -6,15 +6,84 @@ var db;
 MongoClient.connect(url, function(err, getdb) {
     if(!err){
         db = getdb;
+        db.createCollection( "complaints");
+        db.createCollection( "categories");
+        db.createCollection( "account_types");
+        db.createCollection( "reported_complaints");
+        db.collection("account_types").insertOne({name:"anonymous",getComplaints:true,addComplaint:true},function(err,result){
+            if(err){
+                console.log("\033[31mError creating anonymous account type\x1b[0m");
+            }
+        });
     }else{
         console.log("\033[31mMongoDB is closed\x1b[0m");
     }
-    db.createCollection( "complaints");
-    db.createCollection( "categories");
-
 });
 
 module.exports = {
+    createAccountType:function (typeName,success,fail) {
+        db.collection("account_types").insertOne({name:typeName,getComplaints:false,addComplaint:false},function(err,result){
+            if(!err){
+                success(result);
+            }else{
+                fail();
+            }
+        });
+    },
+    modifyAccountType:function (account_type,success,fail) {
+        db.collection("account_types").insertOne(account_type,function(err,result){
+            if(!err){
+                success();
+            }else{
+                fail();
+            }
+        });
+    },
+    findReportedComplaint:function (complaint,success,fail) {
+        db.collection("reported_complaints").findOne({complaint_id:complaint._id},function(err,result){
+            if(!err){
+                success(result);
+            }else{
+                fail();
+            }
+        });
+    },
+    modifyReportedComplaint:function (complaint,success,fail) {
+        db.collection("reported_complaints").insertOne(complaint,function(err,result){
+            if(!err){
+                success();
+            }else{
+                fail();
+            }
+        });
+    },
+    createReportedComplaint:function (complaint,success,fail) {
+        db.collection("reported_complaints").insertOne({complaint_id:complaint._id,reports:1,reporters:[]},function(err,result){
+            if(!err){
+                success();
+            }else{
+                fail();
+            }
+        });
+    },
+    getAccountType:function (typeName,success,fail) {
+        db.collection("complaints").findOne({name:typeName},function(err,result){
+            if(!err){
+                success(result);
+            }else{
+                fail();
+            }
+        });
+    },
+    findAllAccountTypes:function (success,fail) {
+        db.collection("account_types").find().toArray(function(err,result){
+            if(!err){
+                success(result);
+            }else{
+                fail();
+            }
+        });
+    },
     findAllComplaints:function (success,fail) {
         db.collection("complaints").find().toArray(function(err,result){
             if(!err){
@@ -35,6 +104,16 @@ module.exports = {
     },
     addCategory:function(category,success,fail) {
         db.collection("categories").insertOne({name: category}, function (err, result) {
+            if (!err) {
+                success(result);
+            }else{
+                fail();
+            }
+        });
+    },
+    addComplain:function(complain,success,fail) {
+        console.log(complain);
+        db.collection("complaints").insertOne(complain, function (err, result) {
             if (!err) {
                 success(result);
             }else{
