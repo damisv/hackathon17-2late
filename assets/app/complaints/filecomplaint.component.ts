@@ -117,7 +117,7 @@ export class FileComplaintComponent implements OnInit{
         console.log(this.complaint);
         this.complaintService.addComplain(this.complaint).subscribe();
 
-        //this.router.navigateByUrl('/citizen/complaints');
+        this.router.navigateByUrl('/citizen/complaints');
     }
 
 }

@@ -37,15 +37,66 @@
             <md-option *ngFor="let category of distinctCategories" [value]="category">{{category}}</md-option>
         </md-select>
         <button (click)="deleteFilteredComplaints()">Delete all filtered</button>-->
-        <table>
-            <tr *ngFor="let complaint of complaints; let i = index">
-                <td *ngIf="categorySearch(complaint.category)"><md-checkbox></md-checkbox></td>
-                <td *ngIf="categorySearch(complaint.category)">{{ i+1 }}</td>
-                <td *ngIf="categorySearch(complaint.category)" >{{complaint.name}}</td>
-                <td *ngIf="categorySearch(complaint.category)" >{{ complaint?.status }}</td>
-                <td *ngIf="categorySearch(complaint.category)" >{{ complaint?.dateAdded}}</td>
-            </tr>
-        </table>
+
+                <md-tab-group #tabGroup style="width:100%;height:100%">
+                    <md-tab label="Complaints View">
+                        <table style="padding-top:0;padding-bottom:0">
+                            <tr *ngFor="let complaint of complaints; let i = index">
+                                <td *ngIf="categorySearch(complaint.category)"><md-checkbox></md-checkbox></td>
+                                <td *ngIf="categorySearch(complaint.category)">{{ i+1 }}</td>
+                                <td *ngIf="categorySearch(complaint.category)" >{{complaint.name}}</td>
+                                <td *ngIf="categorySearch(complaint.category)" >{{ complaint?.status }}</td>
+                                <td *ngIf="categorySearch(complaint.category)" >{{ complaint?.dateAdded}}</td>
+                            </tr>
+                        </table>
+                    </md-tab>
+                    <md-tab label="Create an account">
+                        <div class="form">
+
+    <md-card style="padding-left:5em;">
+        <md-card-title>
+            Create an account with specific privileges
+        </md-card-title>
+        <md-card-subtitle>
+            Please fill all input fields
+        </md-card-subtitle>
+
+        <md-card-content >
+            <p><md-input-container class="full-width">
+                <input mdInput placeholder="Privileges" [mdAutocomplete]="auto" [formControl]="privilegesCtrl">
+            </md-input-container>
+                <md-autocomplete #auto="mdAutocomplete">
+                    <md-option *ngFor="let privilege of filteredPrivileges | async" [value]="privilege">
+                        {{ privilege }}
+                    </md-option>
+                </md-autocomplete>
+            </p>
+            <p><md-input-container class="full-width">
+                <input mdInput placeholder="Name of user" >
+            </md-input-container></p>
+            <p><md-input-container class="full-width">
+                <input mdInput placeholder="Last Name of user" >
+            </md-input-container></p>
+            <p><md-input-container class="full-width">
+                <input mdInput placeholder="username" >
+            </md-input-container></p>
+            <p><md-input-container class="full-width">
+                <input mdInput type="password" placeholder="password" >
+            </md-input-container></p>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button>Create this account</button>
+        </md-card-actions>
+    </md-card>
+
+
+
+                        </div>
+                    </md-tab>
+                </md-tab-group>
+
+
+
         <!--<input #box (keydown.enter)="addCategory(box.value)" type="text" placeholder="new category">
         <h1>Category: {{newCategory}} saved</h1>
 

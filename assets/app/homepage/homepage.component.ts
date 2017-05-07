@@ -38,6 +38,8 @@ export class HomepageComponent {
                         this.pieOptions["series"][0].data[index].y = category.y;
                     }
                 }
+                this.pieOptions["series"][0].data[0].sliced= true;
+                this.pieOptions["series"][0].data[0].selected= true;
             }
         );
 
@@ -137,9 +139,7 @@ export class HomepageComponent {
                     {name:'Street Lights', y:0},
                     {
                         name: 'Lights',
-                        y: 0,
-                        sliced: true,
-                        selected: true
+                        y: 0
                     },
                     {name:'Environment', y:0},
                     {name:'Animals', y:0},

@@ -1,6 +1,7 @@
 import {Component, ViewChild} from "@angular/core";
 import {AdminService} from "./admin.service";
 import {isNullOrUndefined} from "util";
+import {FormControl} from "@angular/forms";
 
 @Component({
     selector: 'admin-component',
@@ -15,7 +16,17 @@ export class AdminComponent {
     filterCategory = null;
     accountTypes;
 
+    privileges = ['admin','editor'];
+    privilegesCtrl;
+    filteredPrivileges;
+
+    @ViewChild('tabGroup') tabGroup;
+
     constructor(private adminService:AdminService){
+        this.privilegesCtrl = new FormControl();
+        this.filteredPrivileges = this.privilegesCtrl.valueChanges
+            .startWith(null)
+            .map( privilege => this.filterPrivileges(privilege));
         adminService.getAllComplaints().subscribe(
             res=>{
                 this.complaints = res.complaints;
@@ -39,23 +50,19 @@ export class AdminComponent {
         )
     }
 
+    filterPrivileges(privilege){
+        return privilege ? this.privileges.filter(s => new RegExp(`^${privilege}`, 'gi').test(s))
+            : this.privileges;
+    }
+
     @ViewChild('sidenav') sidenav;
 
     changeCategory(category){
         this.filterCategory = category;
         this.sidenav.close();
+        this.tabGroup.selectedIndex=0;
     }
 
-    rows = [
-        { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-        { name: 'Dany', gender: 'Male', company: 'KFC' },
-        { name: 'Molly', gender: 'Female', company: 'Burger King' },
-    ];
-    columns = [
-        { prop: 'name' },
-        { name: 'Gender' },
-        { name: 'Company' }
-    ];
 
 
     createAccountType(typeName){
