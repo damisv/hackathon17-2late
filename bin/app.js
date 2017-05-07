@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var appRoutes = require('../routes/app');
 var adminRoutes = require('../routes/admin');
 var complaintsRoutes = require('../routes/complaints');
+var accountsRoutes = require('../routes/account');
 //var db = mongoose.connection;
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(function(req, res, next) {
 
 app.use('/admin',adminRoutes);
 app.use('/complaints',complaintsRoutes);
+app.use('/account',accountsRoutes);
 app.use('/',appRoutes);
 
 

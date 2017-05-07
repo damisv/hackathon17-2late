@@ -86,6 +86,7 @@ module.exports = {
     },
     findAllComplaints:function (success,fail) {
         db.collection("complaints").find().toArray(function(err,result){
+            console.log(result);
             if(!err){
                 success(result);
             }else{
@@ -165,6 +166,15 @@ module.exports = {
                 fail();
             }
         })
+    },
+    userExists:function (user,success,fail) {
+        db.collection("users").findOne({name:user.name,password:user.password},function(err,result){
+            if(!err){
+                success(result);
+            }else{
+                fail();
+            }
+        });
     }
 };
 

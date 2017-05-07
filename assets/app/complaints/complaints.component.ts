@@ -7,6 +7,7 @@ import { MapsAPILoader } from '@agm/core';
 
 import {} from '@types/googlemaps';
 import {Complaint} from "../models/complaint";
+import {ComplaintService} from "./complaints.service";
 
 
 
@@ -40,8 +41,15 @@ export class ComplaintsComponent implements OnInit{
     constructor(
             public dialog: MdDialog,
             private mapsAPILoader: MapsAPILoader,
-            private ngZone: NgZone)
-    {}
+            private ngZone: NgZone,
+            private complaintService:ComplaintService)
+    {
+        complaintService.getAllComplaints().subscribe(
+            res=>{
+                this.complaints = res.complaints;
+            }
+        )
+    }
 
     openDialog(complaint) {
 

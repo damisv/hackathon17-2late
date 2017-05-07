@@ -6,6 +6,7 @@ var db = require('../data/db');
 router.get('/all', function(req, res, next) {
     db.findAllComplaints(success,fail);
     function success(result){
+        console.log(result);
         res.send({complaints:result});
     }
     function fail(){
