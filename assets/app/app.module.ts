@@ -16,11 +16,6 @@ import {FooterComponent} from "./footer/footer.component";
 import {AgmCoreModule} from "@agm/core";
 import {DialogMarkerComponent} from "./complaints/dialogmarker.component";
 import {FileComplaintComponent} from "./complaints/filecomplaint.component";
-import {ComplaintService} from "./complaints/complaints.service";
-import {AdminService} from "./administration/admin.service";
-import {DetailedViewComponent} from "./complaints/detailedview.component";
-import {AdminComponent} from "./administration/admin.component";
-import {CitizenComponent} from "./citizen.component";
 
 
 
@@ -30,11 +25,8 @@ import {CitizenComponent} from "./citizen.component";
         HomepageComponent,
         ComplaintsComponent,
         FileComplaintComponent,
-        DetailedViewComponent,
         FooterComponent,
-        DialogMarkerComponent,
-        AdminComponent,
-        CitizenComponent
+        DialogMarkerComponent
     ],
     imports: [
         BrowserModule,
@@ -52,9 +44,7 @@ import {CitizenComponent} from "./citizen.component";
         require('highcharts/highcharts-3d'),
         require('highcharts/modules/exporting'))
     ],
-    providers: [ComplaintService,
-            AdminService
-        ],
+    providers: [],
     entryComponents: [
         DialogMarkerComponent
     ],

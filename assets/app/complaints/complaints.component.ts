@@ -6,8 +6,6 @@ import {FormControl} from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
 
 import {} from '@types/googlemaps';
-import {Complaint} from "../models/complaint";
-import {ComplaintService} from "./complaints.service";
 
 
 
@@ -26,10 +24,14 @@ export class ComplaintsComponent implements OnInit{
     public searchElementRef: ElementRef;
 
 
-    complaint:Complaint = new Complaint('23623562',41.089798,23.546779,'Leaks','First Complaint','anonymous','24-24-24','Unsolved','','asdfasfgadg')
 
-    complaints:Complaint[]=[
-        this.complaint
+    complaints=[
+        {lat: 41.089798, lng:23.544769,category: 'Street bump'},
+        {lat: 41.089738, lng:23.542739,category: 'Lights'},
+        {lat: 41.089718, lng:23.546029,category: 'Garbage'},
+        {lat: 41.089708, lng:23.546119,category: 'Street bump'},
+        {lat: 41.089728, lng:23.540749,category: 'Street bump'},
+        {lat: 41.089778, lng:23.544789,category: 'Street bump'},
     ];
 
     @ViewChild('mMap') mMap;
@@ -41,15 +43,8 @@ export class ComplaintsComponent implements OnInit{
     constructor(
             public dialog: MdDialog,
             private mapsAPILoader: MapsAPILoader,
-            private ngZone: NgZone,
-            private complaintService:ComplaintService)
-    {
-        complaintService.getAllComplaints().subscribe(
-            res=>{
-                this.complaints = res.complaints;
-            }
-        )
-    }
+            private ngZone: NgZone)
+    {}
 
     openDialog(complaint) {
 
@@ -62,6 +57,7 @@ export class ComplaintsComponent implements OnInit{
     }
 
     onMapClicked(event){
+        this.complaints.push({lat:event.coords.lat,lng:event.coords.lng,category:'new marker'});
         /*this.marker = new AgmMarker(this._markerManager);
         this.marker.latitude = event.coords.lat;
         this.marker.longitude = event.coords.lng;

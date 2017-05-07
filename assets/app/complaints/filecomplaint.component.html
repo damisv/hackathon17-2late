@@ -19,8 +19,10 @@
                     </md-slide-toggle>
 
                     <table class="full-width" cellspacing="0"><tr>
-                        <td><md-input-container class="full-width">
-                            <input mdInput placeholder="Category" [mdAutocomplete]="auto" [formControl]="categoryCtrl" [(ngModel)]="complaint.category">
+
+
+                        <td><md-input-container>
+                            <input mdInput placeholder="Category" [mdAutocomplete]="auto" [formControl]="categoryCtrl">
                         </md-input-container>
                             <md-autocomplete #auto="mdAutocomplete">
                                 <md-option *ngFor="let category of filteredCategories | async" [value]="category">
@@ -76,7 +78,7 @@
 
     </md-card-content>
     <md-card-actions>
-        <button md-raised-button (click)="fileComplaint()">File  {{ complaint.name }}</button>
+        <button md-raised-button>File  {{ complaint.name }}</button>
     </md-card-actions>
     <md-card-footer>
         Fields with * (asterisk) must be filled.

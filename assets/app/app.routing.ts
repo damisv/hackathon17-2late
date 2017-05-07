@@ -1,14 +1,14 @@
 import {RouterModule, Routes} from "@angular/router";
-
-import {AdminComponent} from "./administration/admin.component";
-import {CitizenComponent} from "./citizen.component";
-import {CITIZEN_ROUTES} from "./citizen.routes";
+import {HomepageComponent} from "./homepage/homepage.component";
+import {ComplaintsComponent} from "./complaints/complaints.component";
+import {FileComplaintComponent} from "./complaints/filecomplaint.component";
 
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: 'citizen', pathMatch: 'full'},
-    { path: 'citizen',component: CitizenComponent, children: CITIZEN_ROUTES},
-    { path: 'admin', component: AdminComponent}/*
+    { path: '', redirectTo: '/homepage', pathMatch: 'full'},
+    { path: 'homepage', component: HomepageComponent},
+    { path: 'complaints', component: ComplaintsComponent},
+    { path: 'file', component: FileComplaintComponent},/*
     { path: 'suggestions', component: SuggestionComponent}*/
 ];
 
